@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <TZImagePickerController/TZImagePickerController.h>
+#import <TZImagePickerController/TZImageManager.h>
 #import <Flutter/Flutter.h>
 @interface ImagePickerPlugin : NSObject
 
