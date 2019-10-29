@@ -15,7 +15,6 @@
     
 }
 UIViewController *_viewController;
-
 - (instancetype)initWithViewController:(UIViewController *)viewController {
   self = [super init];
   if (self) {
@@ -51,7 +50,9 @@ UIViewController *_viewController;
         // You can get the photos by block, the same as by delegate.
         // 你可以通过block或者代理，来得到用户选择的照片.
         [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
-
+            NSLog(@"%@",photos);
+            NSLog(@"%@",assets);
+            self.result(photos);
         }];
         [_viewController presentViewController:imagePickerVc animated:YES completion:nil];
     }
