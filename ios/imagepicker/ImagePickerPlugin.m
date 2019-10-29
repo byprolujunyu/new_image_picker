@@ -7,7 +7,7 @@
 //
 #import "ImagePickerPlugin.h"
 #import "TZImagePickerController.h"
-@interface ImagePickerPlugin ()
+@interface ImagePickerPlugin ()<TZImagePickerControllerDelegate>
 @property (strong, nonatomic) FlutterResult result;
 @end
 @implementation ImagePickerPlugin
@@ -33,28 +33,28 @@ UIViewController *_viewController;
 
 
 - (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
-//    if ([@"start" isEqualToString:call.method]) {
-//        self.result = result;
-//        [[self _asrManager] start];
-//    }else if ([@"stop" isEqualToString:call.method]) {
-//         [[self _asrManager] stop];
-//    }else if ([@"cancel" isEqualToString:call.method]) {
-//        [[self _asrManager] cancel];
-//    } else{
-//        result(FlutterMethodNotImplemented);
-//    }
-    
+    self.result=result;
     if ([@"getGallery" isEqualToString:call.method]) {
-        TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 delegate:_viewController];
-
+        TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 delegate:self];
         // You can get the photos by block, the same as by delegate.
         // 你可以通过block或者代理，来得到用户选择的照片.
-        [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
-            NSLog(@"%@",photos);
-            NSLog(@"%@",assets);
-            self.result(photos);
-        }];
+//        [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
+//            NSLog(@"%@",photos);
+//            NSLog(@"%@",assets);
+//            self.result(assets);
+//        }];
+        
+//        [imagePickerVc setDidFinishPickingPhotosWithInfosHandle:^(NSArray<UIImage *> *photos,NSArray *assets,BOOL isSelectOriginalPhoto,NSArray<NSDictionary *> *infos){
+//            NSLog(@"%@",infos);
+//            for (NSDictionary *info in infos) {
+//
+//            }
+//        }];
         [_viewController presentViewController:imagePickerVc animated:YES completion:nil];
     }
+}
+
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto infos:(NSArray<NSDictionary *> *)infos{
+    NSLog(@"%@",assets);
 }
 @end
