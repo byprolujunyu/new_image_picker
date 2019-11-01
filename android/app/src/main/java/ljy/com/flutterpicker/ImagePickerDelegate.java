@@ -1,4 +1,4 @@
- Xpackage ljy.com.flutterpicker;
+package ljy.com.flutterpicker;
 
 import android.app.Activity;
 import android.content.Intent;

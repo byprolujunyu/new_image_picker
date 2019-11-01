@@ -62,6 +62,18 @@ UIViewController *_viewController;
 
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto infos:(NSArray<NSDictionary *> *)infos{
     
+    NSLog(@"%@",photos);
+    NSMutableArray<FlutterStandardTypedData *> *list = [NSMutableArray array];
+    for(UIImage *image in photos){
+        //NSData *imageData = UIImageJPEGRep\\(image);
+        NSData *imageData = UIImagePNGRepresentation(image);
+        NSString * str  =[[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",imageData);
+        FlutterStandardTypedData *data=[FlutterStandardTypedData typedDataWithBytes:imageData];
+        [list addObject:data];
+    }
+    
+    self.result(list);
     
 }
 
